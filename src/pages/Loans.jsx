@@ -1,0 +1,9 @@
+import React from "react";
+import {Card,SectionTitle,Icon,PageTransition,Progress} from "../components";
+import {loans} from "../data";
+export default function Loans(){return <PageTransition><main className="page"><div className="welcome-row"><div><span className="eyebrow">Borrowing</span><h1>Loans</h1><p>Monitor repayment progress, rates and upcoming installments.</p></div><button className="primary-btn"><Icon name="Calculator"/> Calculate a loan</button></div>
+ <div className="stat-grid three"><Card className="summary-card"><span>Total outstanding</span><b>$44,500</b><small>Across 2 loans</small></Card><Card className="summary-card"><span>Next payment</span><b>$740</b><small>Due Oct 15</small></Card><Card className="summary-card"><span>Interest saved</span><b>$1,840</b><small className="positive">with autopay</small></Card></div>
+ <SectionTitle eyebrow="Borrowing overview" title="Your loans"/>
+ <div className="loan-grid">{loans.map((l,i)=>{const pct=Math.round(l.paid/l.principal*100);return <Card className="loan-card" key={l.name}><div className="loan-top"><div className={`loan-icon l${i}`}><Icon name={i?"CarFront":"House"}/></div><span className="status-pill">Active</span></div><h3>{l.name}</h3><span>{l.type} · {l.rate} APR</span><div className="loan-amount"><b>${(l.principal-l.paid).toLocaleString()}</b><small>remaining</small></div><Progress value={pct}/><div className="loan-meta"><span>{pct}% paid</span><span>${l.monthly}/month</span></div><button className="wide-secondary">View loan details <Icon name="ArrowRight"/></button></Card>})}</div>
+ <Card><SectionTitle title="Payment schedule"/><div className="schedule"><div><b>Oct 12</b><span>Auto Loan</span><strong>$520</strong></div><div><b>Oct 15</b><span>Home Renovation Loan</span><strong>$740</strong></div><div><b>Nov 12</b><span>Auto Loan</span><strong>$520</strong></div></div></Card>
+ </main></PageTransition>}
